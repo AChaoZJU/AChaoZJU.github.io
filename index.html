@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-12-03 16:39:12 / Modified: 17:34:26" itemprop="dateCreated datePublished" datetime="2022-12-03T16:39:12+08:00">2022-12-03</time>
+              <time title="Created: 2022-12-03 16:39:12 / Modified: 17:38:56" itemprop="dateCreated datePublished" datetime="2022-12-03T16:39:12+08:00">2022-12-03</time>
             </span>
 
           
@@ -205,8 +205,10 @@
 <h2 id="NFT与以太坊ERC721协议"><a href="#NFT与以太坊ERC721协议" class="headerlink" title="NFT与以太坊ERC721协议"></a>NFT与以太坊ERC721协议</h2><p>基于上述背景，我们终于可以引入本文的主角NFT——非同质化代币。所谓“非同质化”，是相对于同质化的加密货币而言：每个加密货币显然是相同且不唯一的。而每个NFT都是唯一的。</p>
 <p>NFT作品可以是一张图片、动图，一段音乐，或者一段视频。一切可以数据化的物品都可以被铸造成NFT。</p>
 <p>NFT是通过智能合约铸造的。从下图可以看到，在创建了智能合约之后，我在同一个智能合约上铸造了5个NFT。每次铸造的记录都可以在以太坊区块链上被查询到：5次记录的合约地址是相同的。</p>
-<p><img src="images/../../images/nft/3.png" alt="NFT铸造记录"></p>
-<p>除了智能合约的地址，我们还需要NFT在这个合约上的Token ID。这两者可以唯一标识NFT。<br><img src="images/../../images/nft/4.0.png" alt="NFT: Bored Ape 5230"><br><img src="images/../../images/nft/4.png" alt="合约地址和Token ID唯一标识了NFT"></p>
+<p><img src="/images/nft/3.png" alt="NFT铸造记录"></p>
+<p>除了智能合约的地址，我们还需要NFT在这个合约上的Token ID。这两者可以唯一标识NFT。</p>
+<p><img src="/images/nft/4.0.png" alt="NFT: Bored Ape 5230"></p>
+<p><img src="/images/nft/4.png" alt="合约地址和Token ID唯一标识了NFT"></p>
 <p>而以太坊ERC721协议规范了如何铸造NFT。如果一个非同质化代币智能合约符合ERC721协议，我们可以用以下接口与这个智能合约交互，比如：</p>
 <ul>
 <li>blanceOf： 查询一个地址持有的NFT</li>
@@ -216,23 +218,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 以太坊ERC 721协议</span><br><span class="line">interface ERC721 &#123;</span><br><span class="line">  event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);</span><br><span class="line">  event Approval(address indexed _owner, address indexed _approved, uint256 _tokenId);</span><br><span class="line">  event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);</span><br><span class="line"></span><br><span class="line">  function balanceOf(address _owner) external view returns (uint256);</span><br><span class="line">  function ownerOf(uint256 _tokenId) external view returns (address);</span><br><span class="line"></span><br><span class="line">  function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;</span><br><span class="line">  function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;</span><br><span class="line">  function transferFrom(address _from, address _to, uint256 _tokenId) external payable;</span><br><span class="line"></span><br><span class="line">  function approve(address _approved, uint256 _tokenId) external payable;</span><br><span class="line">  function setApprovalForAll(address _operator, bool _approved) external;</span><br><span class="line">  function getApproved(uint256 _tokenId) external view returns (address);</span><br><span class="line">  function isApprovedForAll(address _owner, address _operator) external view returns (bool);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="NFT的存储形式"><a href="#NFT的存储形式" class="headerlink" title="NFT的存储形式"></a>NFT的存储形式</h2><p>NFT被铸造后，就永远被保存在以太坊的区块链上了。如下图所示，我的一个NFT被存储在第7958481号块上。在这条链上，后续的582个块相继确认了上一个块的数据的真实性。</p>
-<p><img src="images/../../images/nft/5.png"><br>那么，区块链如何存储这个NFT呢？tokenURI是我们在铸造代币时所传的参数，这是一个IPFS地址。<br><img src="images/../../images/nft/6.png"></p>
+<p><img src="/images/nft/5.png"><br>那么，区块链如何存储这个NFT呢？tokenURI是我们在铸造代币时所传的参数，这是一个IPFS地址。<br><img src="/images/nft/6.png"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mintNFT(&quot;ipfs:&#x2F;&#x2F;QmXLej3Zgx13Ytpv1XuVQbqQT4iCWrjSpUFhSnP4LdkpQx&quot;)</span><br></pre></td></tr></table></figure>
 <p>IPFS是一个去中心化的分布式文件系统。我们访问这个IPFS地址：返回一个JSON数据，它描述了这个NFT。它的一些属性是我自定义的。我们需要关注image的值，它还是一个IPFS地址。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;attributes&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;trait_type&quot;: &quot;From&quot;,</span><br><span class="line">      &quot;value&quot;: &quot;Xiling Seal Art Society&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;trait_type&quot;: &quot;To&quot;,</span><br><span class="line">      &quot;value&quot;: &quot;MSTR&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  &quot;description&quot;: &quot;Exciting&quot;,</span><br><span class="line">  &quot;image&quot;: &quot;ipfs:&#x2F;&#x2F;QmPcBgxW8JiuF8pK6WC8KwkHiM54Ak6khCQoDmcx5woBWg&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;Exciting&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们继续访问这个IPFS地址，它最终返回一张图片。<br><img src="images/../../images/nft/7.png"></p>
+<p>我们继续访问这个IPFS地址，它最终返回一张图片。<br><img src="/images/nft/7.png"></p>
 <p>这就是主流的存储NFT的方式。为了节省以太坊区块链的空间，区块链只存储一个去中心化的文件地址；NFT指向的数据存储于去中心化的文件系统。</p>
 <h2 id="传统艺术品的痛点"><a href="#传统艺术品的痛点" class="headerlink" title="传统艺术品的痛点"></a>传统艺术品的痛点</h2><p>最引人注意的NFT形式是天价数字艺术品。数字艺术家Beeple从2007年开始每天创造一张图片，最后将这些图片拼成下图的《Everydays：The First 5000 Days》。这件作品在佳士得拍卖行以6900万美元的价格拍出。</p>
-<p><img src="images/../../images/nft/8.png"></p>
+<p><img src="/images/nft/8.png"></p>
 <p>人们关注数字艺术品，这和鉴定传统艺术品真伪的痛点有关。</p>
 <p>对于传统艺术品，造假者不会直接去复刻名家们的作品。因为这些作品当前的所有者，无论是机构还是私人收藏夹，这都为人所知。</p>
 <p>造假者会去模仿而非创作。</p>
 <p>以20世纪做最著名的造假者——范米格伦为例，他会购买被模仿者所处年代的颜料、画布、画框，模仿其技巧和风格；完成之后做相应处理，使其变色开裂，使画作符合其年代特征。</p>
 <p>然后，造假者往往以中间人的身份出现，为赝品的来源编造一个故事，一个比较经典的范例是——这些作品的卖家是逃亡南美的纳粹后人， 卖家担心自己被清算，所以不想说出自己的身份。</p>
 <p>如果造假者成功地欺骗了专业的鉴定者，那赝品会以新发现的名家作品的面貌出现在画廊和拍卖行。</p>
-<p><img src="images/../../images/nft/9.png"></p>
+<p><img src="/images/nft/9.png"></p>
 <p>是的，传统艺术品没有绝对的真伪评判标准。这是传统艺术品的痛点所在。</p>
-<h2 id="NFT-可追溯且不可篡改"><a href="#NFT-可追溯且不可篡改" class="headerlink" title="NFT: 可追溯且不可篡改"></a>NFT: 可追溯且不可篡改</h2><p>以上面提到的NFT，《Everydays：The First 5000 Days》为例，自从它在以太坊主网上被铸造，它的每一次交易都可以在链上被追溯。<br><img src="images/../../images/nft/10.png"></p>
+<h2 id="NFT-可追溯且不可篡改"><a href="#NFT-可追溯且不可篡改" class="headerlink" title="NFT: 可追溯且不可篡改"></a>NFT: 可追溯且不可篡改</h2><p>以上面提到的NFT，《Everydays：The First 5000 Days》为例，自从它在以太坊主网上被铸造，它的每一次交易都可以在链上被追溯。<br><img src="/images/nft/10.png"></p>
 <p>较早的一条交易记录显示：卖家Beeple在611天前将这件作品交易给0x58bf1。0x58bf1是佳士得拍卖行在以太坊上的地址。</p>
 <p>之后的一条交易记录显示：在1个小时后，它被流转给买家，Metakovan。显然，买家在这一个小时内就完成了付款。</p>
 <p>NFT底层的区块链技术保证了一切记录都是可追溯且不可篡改的。这解决了鉴定艺术品真伪的痛点。</p>
@@ -240,7 +242,7 @@
 <p>在NFT作品频频被拍出天价的背景下，我们难免会怀疑NFT的收藏价值。这是否是一场泡沫？<br>那我们能否直接使用不属于我的NFT作品呢，比如用来做头像？</p>
 <p>一个NFT社区共识是：“把不属于自己的NFT当做自己的头像，这是可耻的；除非你拥有它。”</p>
 <p>“强行”拥有一个NFT的代价就是被鄙视。而在收藏品领域，收藏者重视社交价值。</p>
-<p><img src="images/../../images/nft/11.png"></p>
+<p><img src="/images/nft/11.png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>NFT的技术基础——区块链是完善且坚实的。而NFT的收藏价值，依赖人们对数字艺术品的共识。这种共识存在却不好估摸。</p>
 <p>NFT既有着无限可能，又看起来很脆弱。NFT的结局会如何，我想，只有时间会告诉我们答案。</p>
 
